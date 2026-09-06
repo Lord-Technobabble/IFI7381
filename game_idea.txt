@@ -1,4 +1,3 @@
-Fantasy 2D RTS game about the war between undeground races (Dwarfs, Goblins, etc).
-Tha main part of the game is the digging of mineshafts, as this is the way to both obtain resources, and also to reach the enemy.
-The caves and mines can also contain hazards, both natural (i.e lava or water) and man made traps, which the player can create, or leverge to protect, or attack the enemy.
-Gameplay is similiar to Craft The World, but with direct competition against AI (and maybe other player in the future)
+2D asteroid like game about space ships fighting each other. The ships are modular and upon death explode into their parts. These parts can be collected to create a bigger, better ship, but one must watch out to not overextend their energy reserves
+
+Quick thinking and taking just what's needed are the key to surviving the longest and becoming the biggest, most dangerous ship around.
