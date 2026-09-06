@@ -1,3 +1,3 @@
-2D asteroid like game about space ships fighting each other. The ships are modular and upon death explode into their parts. These parts can be collected to create a bigger, better ship, but one must watch out to not overextend their energy reserves
+2D asteroid like game about space ships fighting each other. The ships are modular and upon death explode into their parts. These parts can be then collected and attached to the player's ship to create a bigger, better ship, but one must watch out to not overextend their energy reserves
 
 Quick thinking and taking just what's needed are the key to surviving the longest and becoming the biggest, most dangerous ship around.
