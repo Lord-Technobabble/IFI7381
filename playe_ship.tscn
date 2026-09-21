@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b0x5ubk12ge1g"]
+
+[ext_resource type="Script" uid="uid://dtyeyb2rl38q8" path="res://playe_ship.gd" id="1_dcscd"]
+[ext_resource type="Texture2D" uid="uid://cn16lniupk74s" path="res://icon.svg" id="2_3ys8j"]
+
+[node name="PlayeShip" type="CharacterBody2D" unique_id=879517216]
+script = ExtResource("1_dcscd")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1378526162]
+texture = ExtResource("2_3ys8j")
