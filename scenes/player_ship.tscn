@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://b0x5ubk12ge1g"]
+
+[ext_resource type="Script" uid="uid://dtyeyb2rl38q8" path="res://scripts/player_ship.gd" id="1_gbmm3"]
+[ext_resource type="Texture2D" uid="uid://bdt6ayom16g3w" path="res://sprites/playerShip2_red.png" id="2_ye4q7"]
+[ext_resource type="Texture2D" uid="uid://mni5x6wxjcsb" path="res://sprites/playerShip2_damage3.png" id="3_7t0u0"]
+[ext_resource type="Texture2D" uid="uid://bvhmukmakyo3f" path="res://sprites/fire01.png" id="4_ys4te"]
+[ext_resource type="AudioStream" uid="uid://dg285otb41mpm" path="res://sounds/ScatterNoise1.mp3" id="5_7ni5w"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6mo6b"]
+radius = 18.0
+height = 96.0
+
+[node name="PlayerShip" type="CharacterBody2D" unique_id=879517216]
+script = ExtResource("1_gbmm3")
+
+[node name="ShipSprite" type="Sprite2D" parent="." unique_id=1378526162]
+rotation = 1.5707964
+texture = ExtResource("2_ye4q7")
+
+[node name="DamageSprite" type="Sprite2D" parent="." unique_id=1222663813]
+visible = false
+rotation = 1.5707964
+texture = ExtResource("3_7t0u0")
+
+[node name="ShipCollision" type="CollisionShape2D" parent="." unique_id=1429924659]
+position = Vector2(-13, 0)
+shape = SubResource("CapsuleShape2D_6mo6b")
+
+[node name="ThrusterFlame" type="Sprite2D" parent="." unique_id=1678521456]
+position = Vector2(-45, 0)
+rotation = -1.5707964
+texture = ExtResource("4_ys4te")
+
+[node name="ThrusterSound" type="AudioStreamPlayer" parent="." unique_id=2107733443]
+stream = ExtResource("5_7ni5w")
+volume_db = -20.0

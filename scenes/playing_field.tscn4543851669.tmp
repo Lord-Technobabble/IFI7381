@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dtb7il2dlsdq2"]
+
+[ext_resource type="PackedScene" uid="uid://b0x5ubk12ge1g" path="res://scenes/player_ship.tscn" id="1_pr7n1"]
+[ext_resource type="Script" uid="uid://ptc1frygmf0c" path="res://scenes/playing_field.gd" id="1_xnee4"]
+[ext_resource type="PackedScene" uid="uid://ku23khipwr3m" path="res://scenes/asteroid.tscn" id="2_tvgol"]
+[ext_resource type="Script" uid="uid://cwuo77t4q33o" path="res://scripts/obstacle_spawner.gd" id="3_tvgol"]
+
+[sub_resource type="Curve2D" id="Curve2D_pr7n1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1920, 0, 0, 0, 0, 0, 1920, 1080, 0, 0, 0, 0, 0, 1080, 0, 0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[node name="PlayingField" type="Node2D" unique_id=1820215610]
+script = ExtResource("1_xnee4")
+
+[node name="PlayerShip" parent="." unique_id=879517216 instance=ExtResource("1_pr7n1")]
+position = Vector2(972, 898)
+
+[node name="ObstacleSpawner" type="Path2D" parent="." unique_id=1041212435]
+curve = SubResource("Curve2D_pr7n1")
+script = ExtResource("3_tvgol")
+obstacle_scene = ExtResource("2_tvgol")
+
+[node name="ObstacleSpawnLocation" type="PathFollow2D" parent="ObstacleSpawner" unique_id=419502657]
+
+[node name="MobSpawnTimer" type="Timer" parent="ObstacleSpawner" unique_id=549624036]
+
+[connection signal="died" from="PlayerShip" to="." method="_on_player_ship_died"]
+[connection signal="timeout" from="ObstacleSpawner/MobSpawnTimer" to="ObstacleSpawner" method="_on_mob_spawn_timer_timeout"]
