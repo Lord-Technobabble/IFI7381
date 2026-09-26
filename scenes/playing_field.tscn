@@ -41,8 +41,9 @@ offset_right = 99.0
 offset_bottom = 185.0
 grow_horizontal = 2
 size_flags_horizontal = 4
-text = "Flip And Burn
-Press LMB To Start"
+text = "## Flip And Burn ##
+
+Press LMB To Fire Thrusters"
 horizontal_alignment = 1
 
 [node name="GameOver" type="Label" parent="Texts" unique_id=775183345]
