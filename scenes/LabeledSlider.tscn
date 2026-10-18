@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://d1qcmkbg1m8gf"]
+
+[node name="LabeledSlider" type="HBoxContainer" unique_id=2104120467]
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="." unique_id=1748104938]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "MasterVolume"
+
+[node name="Slider" type="HSlider" parent="." unique_id=1930273485]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+value = 50.0

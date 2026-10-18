@@ -4,9 +4,10 @@ var started = false
 var ended = false
 
 var score = 0
+
+signal score_changed(score: int)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$"Texts/Score Display".text = "Score: %03d" % score
 	pass # Replace with function body.
 
 
@@ -27,8 +28,6 @@ func start() -> void:
 		return
 	started = true
 	
-	$Texts/StartText.visible = false
-	
 	$ObstacleSpawner/MobSpawnTimer.start()
 	
 	$ScoreTimer.start()
@@ -43,4 +42,9 @@ func game_over():
 
 func _on_score_timer_timeout() -> void:
 	score += 1
-	$"Texts/Score Display".text = "Score: %03d" % score
+	emit_signal("score_changed", score)
+
+func _unhandled_input(event):
+	if event is InputEventKey:
+		if event.pressed and event.keycode == KEY_ESCAPE:
+			get_tree().paused = true

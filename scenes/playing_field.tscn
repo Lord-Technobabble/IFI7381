@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dtb7il2dlsdq2"]
+[gd_scene format=4 uid="uid://dtb7il2dlsdq2"]
 
 [ext_resource type="PackedScene" uid="uid://b0x5ubk12ge1g" path="res://scenes/player_ship.tscn" id="1_pr7n1"]
 [ext_resource type="Script" uid="uid://ptc1frygmf0c" path="res://scenes/playing_field.gd" id="1_xnee4"]
@@ -6,6 +6,26 @@
 [ext_resource type="Script" uid="uid://cwuo77t4q33o" path="res://scripts/obstacle_spawner.gd" id="3_tvgol"]
 [ext_resource type="Texture2D" uid="uid://ba37dt365anvf" path="res://sprites/darkPurple.png" id="5_t44w6"]
 [ext_resource type="AudioStream" uid="uid://dgced2yy6nr48" path="res://sounds/Mesmerizing Galaxy Loop.mp3" id="6_5x7eo"]
+[ext_resource type="PackedScene" uid="uid://d1qcmkbg1m8gf" path="res://scenes/LabeledSlider.tscn" id="7_cjkqn"]
+[ext_resource type="Theme" uid="uid://chyllk6w7rheo" path="res://style/MainTheme.tres" id="7_ss4b2"]
+[ext_resource type="Script" uid="uid://coy3eswjlk1n" path="res://scenes/background_music.gd" id="7_t3gh0"]
+[ext_resource type="Script" uid="uid://cx35mcd5ac3e" path="res://scenes/pause_menu.gd" id="8_c2ggr"]
+[ext_resource type="Script" uid="uid://cwmk558mabdm" path="res://scenes/settings_button.gd" id="9_s3ijw"]
+[ext_resource type="Script" uid="uid://cvatih05jrhs0" path="res://scenes/start.gd" id="9_sce75"]
+[ext_resource type="Script" uid="uid://bmjepadfg6moi" path="res://scenes/settings.gd" id="9_u36kq"]
+[ext_resource type="Script" uid="uid://bfa1d15pxns1n" path="res://scenes/quit.gd" id="11_kiy14"]
+[ext_resource type="Script" uid="uid://oijk8esucsta" path="res://scenes/energy_bar.gd" id="13_4fohf"]
+[ext_resource type="Script" uid="uid://by6o5hjgtkwo3" path="res://scenes/score_display.gd" id="13_7cv6e"]
+[ext_resource type="Script" uid="uid://crx0o72rkil01" path="res://scenes/slider.gd" id="14_k2k2k"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5x7eo"]
+texture = ExtResource("5_t44w6")
+texture_region_size = Vector2i(256, 256)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_g4v7s"]
+tile_size = Vector2i(256, 256)
+sources/0 = SubResource("TileSetAtlasSource_5x7eo")
 
 [sub_resource type="Curve2D" id="Curve2D_pr7n1"]
 _data = {
@@ -13,11 +33,24 @@ _data = {
 }
 point_count = 5
 
-[node name="PlayingField" type="Node2D" unique_id=1820215610]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u36kq"]
+bg_color = Color(0.83934236, 0.68302554, 0, 1)
+
+[node name="Game" type="Node2D" unique_id=321682017]
 script = ExtResource("1_xnee4")
+metadata/_edit_horizontal_guides_ = [308.0]
+
+[node name="Background" type="TileMapLayer" parent="." unique_id=555005950]
+z_index = -1
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAACAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAAHAAMAAAAAAAAAAAAHAAIAAAAAAAAAAAAHAAEAAAAAAAAAAAAHAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAFAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAADAAAAAAAAAAAAAAACAAAAAAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAACAAEAAAAAAAAAAAADAAEAAAAAAAAAAAAEAAEAAAAAAAAAAAAFAAIAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAADAAMAAAAAAAAAAAACAAMAAAAAAAAAAAADAAIAAAAAAAAAAAAEAAIAAAAAAAAAAAAFAAEAAAAAAAAAAAAGAAEAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_g4v7s")
+metadata/_edit_lock_ = true
 
 [node name="PlayerShip" parent="." unique_id=879517216 instance=ExtResource("1_pr7n1")]
 position = Vector2(972, 499)
+
+[node name="ThrusterSound" parent="PlayerShip" index="4" unique_id=2107733443]
+volume_db = -5.0
 
 [node name="ObstacleSpawner" type="Path2D" parent="." unique_id=1041212435]
 curve = SubResource("Curve2D_pr7n1")
@@ -30,21 +63,6 @@ obstacle_scene = ExtResource("2_tvgol")
 wait_time = 0.5
 
 [node name="Texts" type="Node" parent="." unique_id=1631578607]
-
-[node name="StartText" type="Label" parent="Texts" unique_id=308246483]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -73.0
-offset_top = 136.0
-offset_right = 99.0
-offset_bottom = 185.0
-grow_horizontal = 2
-size_flags_horizontal = 4
-text = "## Flip And Burn ##
-
-Press LMB To Fire Thrusters"
-horizontal_alignment = 1
 
 [node name="GameOver" type="Label" parent="Texts" unique_id=775183345]
 visible = false
@@ -61,25 +79,197 @@ text = "Game Over
 Press LMB to restart"
 horizontal_alignment = 1
 
-[node name="Score Display" type="Label" parent="Texts" unique_id=154401932]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Score: 0000"
-
-[node name="BackGround" type="TextureRect" parent="." unique_id=1160829457]
-z_index = -1
-offset_right = 2018.0
-offset_bottom = 1165.0
-texture = ExtResource("5_t44w6")
-stretch_mode = 1
-
 [node name="ScoreTimer" type="Timer" parent="." unique_id=379190766]
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="." unique_id=2052382968]
+process_mode = 3
 stream = ExtResource("6_5x7eo")
-volume_db = -35.0
+volume_db = -10.0
 autoplay = true
+script = ExtResource("7_t3gh0")
 
+[node name="UI" type="CanvasLayer" parent="." unique_id=1730564885]
+process_mode = 3
+metadata/_edit_lock_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="PauseMenu" type="HBoxContainer" parent="UI" unique_id=1145534969]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -331.0
+offset_top = -386.5
+offset_right = 331.0
+offset_bottom = 386.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_ss4b2")
+script = ExtResource("8_c2ggr")
+
+[node name="BasicMenu" type="VBoxContainer" parent="UI/PauseMenu" unique_id=1573291021]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+alignment = 1
+
+[node name="LogoContainer" type="PanelContainer" parent="UI/PauseMenu/BasicMenu" unique_id=2115230975]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="UI/PauseMenu/BasicMenu/LogoContainer" unique_id=934579417]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Flip And Burn"
+
+[node name="Controls" type="PanelContainer" parent="UI/PauseMenu/BasicMenu" unique_id=1627540657]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/PauseMenu/BasicMenu/Controls" unique_id=31161106]
+layout_mode = 2
+text = "Use mouse to point the spaceraft
+Press LMB to fire thrusters
+Use ESC to pause and show menu"
+
+[node name="ButtonContainer" type="PanelContainer" parent="UI/PauseMenu/BasicMenu" unique_id=1255498876]
+layout_mode = 2
+
+[node name="Margins" type="MarginContainer" parent="UI/PauseMenu/BasicMenu/ButtonContainer" unique_id=2030483227]
+layout_mode = 2
+
+[node name="Buttons" type="VBoxContainer" parent="UI/PauseMenu/BasicMenu/ButtonContainer/Margins" unique_id=828803274]
+layout_mode = 2
+
+[node name="Start" type="Button" parent="UI/PauseMenu/BasicMenu/ButtonContainer/Margins/Buttons" unique_id=1878742026]
+layout_mode = 2
+text = "Start"
+script = ExtResource("9_sce75")
+
+[node name="SettingsButton" type="Button" parent="UI/PauseMenu/BasicMenu/ButtonContainer/Margins/Buttons" unique_id=1817605021]
+layout_mode = 2
+toggle_mode = true
+text = "Settings"
+script = ExtResource("9_s3ijw")
+
+[node name="Quit" type="Button" parent="UI/PauseMenu/BasicMenu/ButtonContainer/Margins/Buttons" unique_id=1115272054]
+layout_mode = 2
+text = "Quit"
+script = ExtResource("11_kiy14")
+
+[node name="Settings" type="VBoxContainer" parent="UI/PauseMenu" unique_id=1896872316]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+script = ExtResource("9_u36kq")
+
+[node name="SettingHeaderContainer" type="PanelContainer" parent="UI/PauseMenu/Settings" unique_id=965721153]
+layout_mode = 2
+
+[node name="SettingLabel" type="Label" parent="UI/PauseMenu/Settings/SettingHeaderContainer" unique_id=1391671270]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Settings"
+
+[node name="SliderPanel" type="PanelContainer" parent="UI/PauseMenu/Settings" unique_id=1154546407]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="SliderSettingsContainer" type="VBoxContainer" parent="UI/PauseMenu/Settings/SliderPanel" unique_id=193469855]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="MasterVolume" parent="UI/PauseMenu/Settings/SliderPanel/SliderSettingsContainer" unique_id=2104120467 instance=ExtResource("7_cjkqn")]
+layout_mode = 2
+
+[node name="Label" parent="UI/PauseMenu/Settings/SliderPanel/SliderSettingsContainer/MasterVolume" index="0" unique_id=1748104938]
+text = "Master Volume"
+
+[node name="Slider" parent="UI/PauseMenu/Settings/SliderPanel/SliderSettingsContainer/MasterVolume" index="1" unique_id=1930273485]
+script = ExtResource("14_k2k2k")
+
+[node name="LabeledSlider" parent="UI/PauseMenu/Settings/SliderPanel/SliderSettingsContainer" unique_id=552436583 instance=ExtResource("7_cjkqn")]
+layout_mode = 2
+
+[node name="Label" parent="UI/PauseMenu/Settings/SliderPanel/SliderSettingsContainer/LabeledSlider" index="0" unique_id=1748104938]
+text = "Effect Volume"
+
+[node name="LabeledSlider2" parent="UI/PauseMenu/Settings/SliderPanel/SliderSettingsContainer" unique_id=585651880 instance=ExtResource("7_cjkqn")]
+layout_mode = 2
+
+[node name="Label" parent="UI/PauseMenu/Settings/SliderPanel/SliderSettingsContainer/LabeledSlider2" index="0" unique_id=1748104938]
+text = "Music Volume"
+
+[node name="Slider" parent="UI/PauseMenu/Settings/SliderPanel/SliderSettingsContainer/LabeledSlider2" index="1" unique_id=1930273485]
+allow_greater = true
+
+[node name="RightSideHUD" type="VBoxContainer" parent="UI" unique_id=1159476342]
+anchors_preset = -1
+anchor_left = 0.9609375
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+theme = ExtResource("7_ss4b2")
+metadata/_edit_use_anchors_ = true
+
+[node name="PanelContainer2" type="PanelContainer" parent="UI/RightSideHUD" unique_id=1227312277]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/RightSideHUD/PanelContainer2" unique_id=1577218767]
+layout_mode = 2
+
+[node name="ScoreDisplay" type="Label" parent="UI/RightSideHUD/PanelContainer2/MarginContainer" unique_id=208053408]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Score 100"
+script = ExtResource("13_7cv6e")
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/RightSideHUD" unique_id=844741567]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/RightSideHUD/PanelContainer" unique_id=611092423]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/RightSideHUD/PanelContainer/MarginContainer" unique_id=141585097]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/RightSideHUD/PanelContainer/MarginContainer/VBoxContainer" unique_id=757383198]
+layout_mode = 2
+text = "Energy:"
+
+[node name="EnergyBar" type="ProgressBar" parent="UI/RightSideHUD/PanelContainer/MarginContainer/VBoxContainer" unique_id=1494471242]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_u36kq")
+value = 100.0
+fill_mode = 3
+script = ExtResource("13_4fohf")
+
+[connection signal="score_changed" from="." to="UI/RightSideHUD/PanelContainer2/MarginContainer/ScoreDisplay" method="_on_game_score_changed"]
 [connection signal="died" from="PlayerShip" to="." method="_on_player_ship_died"]
+[connection signal="thrust_time_changed" from="PlayerShip" to="UI/RightSideHUD/PanelContainer/MarginContainer/VBoxContainer/EnergyBar" method="_on_player_ship_thrust_time_changed"]
 [connection signal="timeout" from="ObstacleSpawner/MobSpawnTimer" to="ObstacleSpawner" method="_on_mob_spawn_timer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
+[connection signal="visibility_changed" from="UI/PauseMenu" to="UI/PauseMenu" method="_on_visibility_changed"]
+[connection signal="pressed" from="UI/PauseMenu/BasicMenu/ButtonContainer/Margins/Buttons/Start" to="UI/PauseMenu/BasicMenu/ButtonContainer/Margins/Buttons/Start" method="_on_pressed"]
+[connection signal="toggled" from="UI/PauseMenu/BasicMenu/ButtonContainer/Margins/Buttons/SettingsButton" to="UI/PauseMenu/Settings" method="_on_settings_toggled"]
+[connection signal="visibility_changed" from="UI/PauseMenu/BasicMenu/ButtonContainer/Margins/Buttons/SettingsButton" to="UI/PauseMenu/BasicMenu/ButtonContainer/Margins/Buttons/SettingsButton" method="_on_visibility_changed"]
+[connection signal="pressed" from="UI/PauseMenu/BasicMenu/ButtonContainer/Margins/Buttons/Quit" to="UI/PauseMenu/BasicMenu/ButtonContainer/Margins/Buttons/Quit" method="_on_pressed"]
+[connection signal="value_changed" from="UI/PauseMenu/Settings/SliderPanel/SliderSettingsContainer/LabeledSlider/Slider" to="PlayerShip/ThrusterSound" method="_on_slider_value_changed"]
+[connection signal="value_changed" from="UI/PauseMenu/Settings/SliderPanel/SliderSettingsContainer/LabeledSlider2/Slider" to="BackgroundMusic" method="_on_slider_value_changed"]
+
+[editable path="PlayerShip"]
+[editable path="UI/PauseMenu/Settings/SliderPanel/SliderSettingsContainer/MasterVolume"]
+[editable path="UI/PauseMenu/Settings/SliderPanel/SliderSettingsContainer/LabeledSlider"]
+[editable path="UI/PauseMenu/Settings/SliderPanel/SliderSettingsContainer/LabeledSlider2"]
